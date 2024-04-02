@@ -1,0 +1,39 @@
+<div [@routerTransition]>
+  <sub-header [title]="'Add Exam'">
+    <div class="d-flex align-items-center">
+      
+    </div>
+  </sub-header>
+  <div class="card card-custom gutter-b p-6">
+    <div class="card-body border mx-0">
+      <tabset #staticTabs>
+        <tab heading="Details">
+          <exam-detail-component #examConfig (validEvent)="enable($event)"></exam-detail-component>
+        </tab>
+        <tab heading="Question" [disabled]="questionTabDisabled">
+          <app-detail-question *ngFor="let question of questionService.questionList; let i = index" [id]="i" [questionInput]="question"></app-detail-question>
+          <button class="btn btn-success button-create mt-8" (click)="questionService.addQuestion()">Create a new question</button>
+        </tab>
+      </tabset>
+      <div class="d-flex justify-content-between px-8 border-top border-bottom pt-2 pb-4">
+        <div>
+          <input type="submit" class="btn btn-secondary" value="Cancel" />
+          <input type="submit" class="btn btn-primary" value="Save" (click)="saveConfig()"/>
+          <div *ngIf="showSuccessDialog" >
+            <div class="overlay">
+              <div class="dialog">
+                <div class="bg-success card">
+                  <div class="card-body d-flex flex-column align-items-center">
+                    <div class="mb-3 rounded-circle bg-white p-2"><i class="pi pi-check" style="font-size: 3rem; color: gray" ></i></div>
+                    <h2 class="text-white font-weight-bold">Create new exam Successfully with id: {{examId}}!</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

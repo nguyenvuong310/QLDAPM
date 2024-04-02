@@ -1,0 +1,29 @@
+<div class="content d-flex flex-column flex-column-fluid">
+    <div class="card card-custom">
+        <div class="card-body">
+            <div
+            ng2FileDrop
+            [ngClass]="{'border-success': hasFileOver}"
+            (fileOver)="fileOver($event)"
+            [uploader]="uploader"
+            class="border border-primary p-10 row">
+                <div *ngFor="let item of uploader.queue" class="card card-flush card-p-0" style="width: 8rem;">
+                    <div class="card-body position-relative flex-grow-0 flaticon2-file-2 fs-5x fw-light">
+                        <button class="position-absolute top-0 end-0 flaticon2-delete fs-6 btn btn-icon btn-sm btn-active-color-primary"
+                        (click)="item.remove()">
+                        </button>
+                    </div>
+                    
+                    <span class="card-footer">{{ item?.file?.name }}</span>
+                </div>
+            </div>
+            <input type="file" ng2FileSelect [uploader]="uploader" style="display: none"  #fileUploader>
+            <button class="mt-5 btn btn-success" (click)="fileUploader.click()">
+                Select File
+            </button>
+            <button class="mt-5 btn btn-success" (click)="save()">
+                Upload File
+            </button>
+        </div>
+    </div>
+</div>

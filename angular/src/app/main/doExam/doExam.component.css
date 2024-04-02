@@ -1,0 +1,27 @@
+.container-exam {
+    display: flex;
+
+}
+.container-exam .questions {
+    display: flex;
+    width: 70%;
+    border-right: 2px solid black;
+    height: 100vh;
+}
+.container-exam .questions .number_question{
+    width:15%;
+    height: 100px;
+    padding: .5em;
+    margin-bottom: 1.8em;
+    background-color: #f8f9fa;
+    border: 1px solid #cad0d7;
+    border-radius: 2px;
+/* height: 40px;
+width: 40px;
+border: 1px solid black; */
+}
+.container-exam .questions .content_question{
+color: red;
+width: 85%;
+background-color: #e7f3f5;
+}

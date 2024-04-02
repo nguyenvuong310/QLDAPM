@@ -1,0 +1,68 @@
+<div>
+    <div class="hstack mb-5">
+        <div class="input-group me-5">
+            <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchText" (change)="onTextChange($event.target.value)">
+            <button class="btn btn-primary" type="button" (click)="isCollapsed = !isCollapsed">
+                <i class="flaticon-interface-7 icon-lg"></i>
+            </button>
+        </div>
+        <a routerLink="./view-exam">
+            <button class="btn btn-primary" style="width: 12rem;">
+                Thêm đề thi
+            </button>
+        </a>
+        
+    </div>
+    <div [collapse]="isCollapsed" [isAnimated]="true">
+        <div class="row mb-5">
+            <div class="input-group" style="width: 40%;">
+                <label class="input-group-text">Từ ngày</label>
+                <input type="text"
+                placeholder="Ngày bắt đầu"
+                class="form-control"
+                [(ngModel)]="lowerTime"
+                bsDatepicker>
+                <label class="input-group-text">Đến ngày</label>
+                <input type="text"
+                placeholder="Ngày kết thúc"
+                class="form-control"
+                [(ngModel)]="upperTime"
+                bsDatepicker>
+            </div>
+            <div class="input-group" style="width: 30%;">
+                <label class="input-group-text">Mã môn học</label>
+                <input class="form-control" type="text" placeholder="Mã môn học" [(ngModel)]="courseId">
+            </div>
+            <div class="input-group" style="width: 15%;">
+                <label class="input-group-text">Đề thi</label>
+                <select class="form-select" [(ngModel)]="examType">
+                    <option *ngFor="let item of type">{{item}}</option>
+                </select>
+            </div>
+            <div class="input-group" style="width: 15%;">
+                <label class="input-group-text">Học kì</label>
+                <select class="form-select" [(ngModel)]="semester">
+                    <option *ngFor="let item of semesterList">{{item}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-group" style="width: 40%;">
+                <label class="input-group-text">Môn học</label>
+                <input class="form-control" type="text" placeholder="Môn học" [(ngModel)]="courseName">
+            </div>
+            <div class="input-group" style="width: 40%;">
+                <label class="input-group-text">Giảng viên</label>
+                <input class="form-control" type="text" placeholder="Giảng viên" [(ngModel)]="teacher">
+            </div>
+            <div class="d-flex justify-content-end" style="width: 20%;">
+                <button class="btn btn-danger" (click)="clear()">
+                    Xoá
+                </button>
+                <button class="btn btn-primary" (click)="search()">
+                    Tìm kiếm
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
