@@ -35,10 +35,17 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
             return new ListResultDto<ExamListDto>(ObjectMapper.Map<List<ExamListDto>>(exam));
         }
 
-        public async Task AddExam(CreateExamInput input)
+        public async Task<int> AddExam(CreateExamInput input)
         {
             var exam = ObjectMapper.Map<Exam>(input);
             await _examRepository.InsertAsync(exam);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+
+            var lastExam = await _examRepository.GetAll().OrderByDescending(e => e.Id).FirstOrDefaultAsync();
+            int lastExamId = lastExam?.Id ?? 0;
+
+            return lastExamId;
         }
 
         public async Task DeleteExam(EntityDto input)

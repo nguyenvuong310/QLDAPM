@@ -18,7 +18,7 @@
       <div class="d-flex justify-content-between px-8 border-top border-bottom pt-2 pb-4">
         <div>
           <input type="submit" class="btn btn-secondary" value="Cancel" />
-          <input type="submit" class="btn btn-primary" value="Save" (click)="saveConfig()"/>
+          <input type="submit" class="btn btn-primary" value="Save" (click)="saveConfig()" [disabled]="questionTabDisabled"/>
           <div *ngIf="showSuccessDialog" >
             <div class="overlay">
               <div class="dialog">
@@ -37,3 +37,14 @@
   </div>
 </div>
 
+<ng-template #modalTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{modalMessage}}
+  </div>
+</ng-template>

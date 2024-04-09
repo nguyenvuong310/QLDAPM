@@ -193,7 +193,7 @@ namespace MyCompanyName.AbpZeroTemplate
             configuration.CreateMap<Exam, ExamListDto>();
             //configuration.CreateMap<AddPhoneInput, Phone>();
             configuration.CreateMap<CreateExamInput, Exam>();
-            //configuration.CreateMap<Exam, GetExamForEditOutput>();
+            configuration.CreateMap<Exam, ExamDto>();
             //configuration.CreateMap<Exam, ExamInTopicListDto>();
 
 

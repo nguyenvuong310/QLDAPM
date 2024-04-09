@@ -2,22 +2,22 @@
     <div class="mb-10">
         <div class="btn-group me-5" dropdown>
             <button dropdownToggle type="button" class="btn btn-light border border-dark dropdown-toggle text-dark p-3" aria-controls="dropdown-basic">
-                {{selectedSubject ? selectedSubject.name : "Môn học"}} <label class="text-danger">*</label><span class="caret"></span>
+                {{examService.course ? examService.course : "Môn học"}} <label class="text-danger">*</label><span class="caret"></span>
             </button>
             <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-                <li role="menuitem" *ngFor="let item of subjects">
-                    <button (click)="setSubject(item)" class="dropdown-item">
-                        {{item.name}}
+                <li role="menuitem" *ngFor="let item of courses">
+                    <button (click)="setCourse(item)" class="dropdown-item">
+                        {{item}}
                     </button>
                 </li>
             </ul>
         </div>
         <div class="btn-group" dropdown>
             <button dropdownToggle type="button" class="btn btn-light border border-dark dropdown-toggle text-dark p-3" aria-controls="dropdown-basic">
-                {{selectedType ? selectedType : "Đề thi"}} <label class="text-danger">*</label><span class="caret"></span>
+                {{examService.examType ? examService.examType : "Đề thi"}} <label class="text-danger">*</label><span class="caret"></span>
             </button>
             <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-                <li role="menuitem" *ngFor="let item of type">
+                <li role="menuitem" *ngFor="let item of types">
                     <button (click)="setType(item)" class="dropdown-item">
                         {{item}}
                     </button>
@@ -32,7 +32,7 @@
             placeholder="Ngày bắt đầu"
             class="form-control me-5"
             (bsValueChange)="checkValid()"
-            [(ngModel)]="startDate"
+            [(ngModel)]="examService.startDate"
             bsDatepicker>
         </div>
         <div class="input-group w-50">
@@ -41,35 +41,35 @@
             placeholder="Ngày kết thúc"
             class="form-control me-5"
             (bsValueChange)="checkValid()"
-            [(ngModel)]="endDate"
+            [(ngModel)]="examService.endDate"
             bsDatepicker>
         </div>
     </div>
     <div class="input-group mb-5 w-25">
         <label class="input-group-text">Thời gian<label class="text-danger">*</label></label>
-        <input class="form-control form-control-sm rounded" type="number" [(ngModel)]="time" (change)="checkValid()">
+        <input class="form-control form-control-sm rounded" type="number" [(ngModel)]="examService.time" (change)="checkValid()">
         <label class="input-group-text">phút</label>
     </div>
     <div class="input-group mb-5">
         <div class="input-group-text">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="isRandom">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="examService.isRandom">
         </div>
         <label class="input-group-text">Trộn câu hỏi</label>
     </div>
     <div class="input-group mb-5 p-5 border border-secondary rounded">
         <div class="input-group mb-5" style="width: 24rem;">
             <div class="input-group-text">
-                <input class="form-check-input" type="checkbox" [(ngModel)]="multipleAttempt">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="examService.multipleAttempt">
             </div>
             <label class="input-group-text">Cho phép làm lại</label>
-            <input class="form-control form-control-sm rounded"type="number" [(ngModel)]="attemptCount" [disabled]="!multipleAttempt">
+            <input class="form-control form-control-sm rounded"type="number" [(ngModel)]="examService.attemptCount" [disabled]="!examService.multipleAttempt">
             <label class="input-group-text">lần</label>
         </div>
         <div class="input-group">
             <label class="input-group-text">Điểm được tính</label>
             <div class="btn-group" dropdown>
                 <button dropdownToggle type="button" class="btn btn-light border border-secondary text-start dropdown-toggle" aria-controls="dropdown-basic">
-                    {{selectedPolicy ? selectedPolicy : policies[0]}} <span class="caret"></span>
+                    {{examService.gradingPolicy ? examService.gradingPolicy : policies[0]}} <span class="caret"></span>
                 </button>
                 <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
                     <li role="menuitem" *ngFor="let item of policies">
@@ -84,30 +84,30 @@
     <div class="input-group mb-5 p-5 border border-secondary rounded">
         <div class="input-group mb-5">
             <div class="input-group-text">
-                <input class="form-check-input" type="checkbox" [(ngModel)]="allowMistakeReview">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="examService.allowMistakeReview">
             </div>
             <label class="input-group-text">Cho phép sinh viên xem lại câu sai</label>
             <div class="input-group ms-15">
                 <div class="input-group-text">
-                    <input class="form-check-input" type="checkbox" [(ngModel)]="allowMistakeReviewLast">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="examService.allowMistakeReviewLast">
                 </div>
                 <label class="input-group-text">Chỉ sau lần làm bài cuối</label>
             </div>
             <div class="input-group ms-15">
                 <div class="input-group-text">
-                    <input class="form-check-input" type="checkbox" [(ngModel)]="allowMistakeReviewAll">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="examService.allowMistakeReviewAll">
                 </div>
                 <label class="input-group-text">Sau mỗi lần làm bài</label>
             </div>
         </div>
         <div class="input-group">
             <div class="input-group-text">
-                <input class="form-check-input" type="checkbox" [(ngModel)]="allowCorrectReview">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="examService.allowCorrectReview">
             </div>
             <label class="input-group-text">Cho phép sinh viên xem lại câu đúng</label>
             <div class="input-group ms-15">
                 <div class="input-group-text">
-                    <input class="form-check-input" type="checkbox" [(ngModel)]="allowCorrectReviewLast">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="examService.allowCorrectReviewLast">
                 </div>
                 <label class="input-group-text">Chỉ sau lần làm bài cuối</label>
             </div>
@@ -115,20 +115,20 @@
     </div>
     <div class="input-group mb-5">
         <div class="input-group-text">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="oncePerQuestion">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="examService.oncePerQuestion">
         </div>
         <label class="input-group-text">Xem mỗi câu hỏi một lần</label>
     </div>
     <div class="input-group p-5 border border-secondary rounded">
         <div class="input-group mb-5">
             <div class="input-group-text">
-                <input class="form-check-input" type="checkbox" [(ngModel)]="requirePassword">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="examService.requirePassword">
             </div>
             <label class="input-group-text">Yêu cầu mật khẩu</label>
         </div>
         <div class="input-group w-50">
             <label class="input-group-text">Mật khẩu</label>
-            <input class="form-control form-control-sm rounded" type="text" [(ngModel)]="password" [disabled]="!requirePassword">
+            <input class="form-control form-control-sm rounded" type="text" [(ngModel)]="examService.password" [disabled]="!examService.requirePassword">
         </div>
     </div>
 </div>

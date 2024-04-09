@@ -24,9 +24,16 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
         [MaxLength(MaxFilePathLength)]
         public virtual string FilePath { get; set; }
 
+
+        
+
         [ForeignKey("QuestionId")]
-        public virtual Question Question { get; set; }
         public virtual int QuestionId { get; set; }
+
+        [ForeignKey("ExamId")]
+        public virtual int ExamId { get; set; }
+
+        public virtual Question Question { get; set; }
 
     }
 }

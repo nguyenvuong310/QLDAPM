@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyCompanyName.AbpZeroTemplate.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using MyCompanyName.AbpZeroTemplate.EntityFrameworkCore;
 namespace MyCompanyName.AbpZeroTemplate.Migrations
 {
     [DbContext(typeof(AbpZeroTemplateDbContext))]
-    partial class AbpZeroTemplateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240402113627_Drop_Database")]
+    partial class Drop_Database
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1766,159 +1768,6 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                     b.ToTable("AppChatMessages");
                 });
 
-            modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.Exam", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Course")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("End_date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Exam_type")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("Mix_question")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Point_is_cal")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int>("Redo_num")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Require_password")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<bool>("Review_right_ans")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Review_wrong_ans")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("Start_date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("View_question_one")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Working_time")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PbExams");
-                });
-
-            modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.ExamFile", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int>("ExamId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionId", "ExamId")
-                        .IsUnique();
-
-                    b.ToTable("PbExamFiles");
-                });
-
-            modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.Question", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ExamId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Answer")
-                        .HasMaxLength(65535)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(65535)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Point")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Question_type")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("Id", "ExamId");
-
-                    b.HasIndex("ExamId");
-
-                    b.ToTable("PbQuestions");
-                });
-
             modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.Friendships.Friendship", b =>
                 {
                     b.Property<long>("Id")
@@ -2448,28 +2297,6 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
-            modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.ExamFile", b =>
-                {
-                    b.HasOne("MyCompanyName.AbpZeroTemplate.ERP.Question", "Question")
-                        .WithOne("ExamFile")
-                        .HasForeignKey("MyCompanyName.AbpZeroTemplate.ERP.ExamFile", "QuestionId", "ExamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.Question", b =>
-                {
-                    b.HasOne("MyCompanyName.AbpZeroTemplate.ERP.Exam", "Exam")
-                        .WithMany("Questions")
-                        .HasForeignKey("ExamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Exam");
-                });
-
             modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.MultiTenancy.Payments.SubscriptionPayment", b =>
                 {
                     b.HasOne("Abp.Application.Editions.Edition", "Edition")
@@ -2579,16 +2406,6 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                     b.Navigation("Settings");
 
                     b.Navigation("Tokens");
-                });
-
-            modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.Exam", b =>
-                {
-                    b.Navigation("Questions");
-                });
-
-            modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.Question", b =>
-                {
-                    b.Navigation("ExamFile");
                 });
 #pragma warning restore 612, 618
         }

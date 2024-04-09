@@ -16,12 +16,7 @@ import { RouterModule } from '@angular/router';
                         path: 'exam',
                         loadChildren: () => import('./exam/exam.module').then(m => m.ExamModule)
                         // data: {permission: 'Page.Tenant.ViewExam'}
-                    },     
-                    {
-                        path: 'doExam',
-                        loadChildren: () => import('./doExam/doExam.module').then(m => m.DoExamModule)
-                        // data: {permission: 'Page.Tenant.ViewExam'}
-                    },                
+                    },                    
                     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'dashboard' },
                 ],

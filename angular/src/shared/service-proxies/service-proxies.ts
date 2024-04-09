@@ -4876,7 +4876,7 @@ export class ExamServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    addExam(body: CreateExamInput | undefined): Observable<void> {
+    addExam(body: CreateExamInput | undefined): Observable<number> {
         let url_ = this.baseUrl + "/api/services/app/Exam/AddExam";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -4888,6 +4888,7 @@ export class ExamServiceProxy {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
             })
         };
 
@@ -4898,14 +4899,14 @@ export class ExamServiceProxy {
                 try {
                     return this.processAddExam(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<number>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<number>><any>_observableThrow(response_);
         }));
     }
 
-    protected processAddExam(response: HttpResponseBase): Observable<void> {
+    protected processAddExam(response: HttpResponseBase): Observable<number> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -4914,14 +4915,17 @@ export class ExamServiceProxy {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
+        return _observableOf<number>(<any>null);
     }
 
     /**
@@ -16477,7 +16481,6 @@ export interface ICreateExamFileInput {
 }
 
 export class CreateExamInput implements ICreateExamInput {
-    id!: number;
     working_time!: number;
     mix_question!: boolean;
     redo_num!: number;
@@ -16502,7 +16505,6 @@ export class CreateExamInput implements ICreateExamInput {
 
     init(_data?: any) {
         if (_data) {
-            this.id = _data["id"];
             this.working_time = _data["working_time"];
             this.mix_question = _data["mix_question"];
             this.redo_num = _data["redo_num"];
@@ -16527,7 +16529,6 @@ export class CreateExamInput implements ICreateExamInput {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
         data["working_time"] = this.working_time;
         data["mix_question"] = this.mix_question;
         data["redo_num"] = this.redo_num;
@@ -16545,7 +16546,6 @@ export class CreateExamInput implements ICreateExamInput {
 }
 
 export interface ICreateExamInput {
-    id: number;
     working_time: number;
     mix_question: boolean;
     redo_num: number;
@@ -16940,6 +16940,7 @@ export interface ICreatePaymentDto {
 }
 
 export class CreateQuestionInput implements ICreateQuestionInput {
+    id!: number;
     point!: number;
     question_type!: string;
     content!: string;
@@ -16957,6 +16958,7 @@ export class CreateQuestionInput implements ICreateQuestionInput {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.point = _data["point"];
             this.question_type = _data["question_type"];
             this.content = _data["content"];
@@ -16974,6 +16976,7 @@ export class CreateQuestionInput implements ICreateQuestionInput {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["point"] = this.point;
         data["question_type"] = this.question_type;
         data["content"] = this.content;
@@ -16984,6 +16987,7 @@ export class CreateQuestionInput implements ICreateQuestionInput {
 }
 
 export interface ICreateQuestionInput {
+    id: number;
     point: number;
     question_type: string;
     content: string;
@@ -28769,6 +28773,7 @@ export interface IUpdateProfilePictureInput {
 
 export class UpdateQuestionInputById implements IUpdateQuestionInputById {
     id!: number;
+    examId!: number;
     point!: number | undefined;
     question_type!: string | undefined;
     content!: string | undefined;
@@ -28786,6 +28791,7 @@ export class UpdateQuestionInputById implements IUpdateQuestionInputById {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.examId = _data["examId"];
             this.point = _data["point"];
             this.question_type = _data["question_type"];
             this.content = _data["content"];
@@ -28803,6 +28809,7 @@ export class UpdateQuestionInputById implements IUpdateQuestionInputById {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["examId"] = this.examId;
         data["point"] = this.point;
         data["question_type"] = this.question_type;
         data["content"] = this.content;
@@ -28813,6 +28820,7 @@ export class UpdateQuestionInputById implements IUpdateQuestionInputById {
 
 export interface IUpdateQuestionInputById {
     id: number;
+    examId: number;
     point: number | undefined;
     question_type: string | undefined;
     content: string | undefined;

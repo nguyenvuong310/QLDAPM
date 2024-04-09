@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Exam, ExamQuery } from '../model/examquery';
 import { BehaviorSubject } from 'rxjs';
+import { ExamListDto, ExamServiceProxy } from '@shared/service-proxies/service-proxies';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExamQueryService {
-  examQuery: ExamQuery
-  examList: BehaviorSubject<Exam[]> = new BehaviorSubject<Exam[]>([
-    { courseId: 'CO3005', courseName: 'Nguyên lý ngôn ngữ lập trình', examType: 'Giữa kỳ', semester: '232', teacher: 'Nguyễn Văn A', date: new Date('2021-10-10 7:30') },
-    { courseId: 'CO3006', courseName: 'Cấu trúc dữ liệu và giải thuật', examType: 'Cuối kỳ', semester: '232', teacher: 'Nguyễn Văn B', date: new Date('2021-10-10 7:30') },
-    { courseId: 'CO3007', courseName: 'Lập trình hướng đối tượng', examType: 'Giữa kỳ', semester: '232', teacher: 'Nguyễn Văn C', date: new Date('2021-10-10 7:30') },
-    { courseId: 'CO3008', courseName: 'Cơ sở dữ liệu', examType: 'Cuối kỳ', semester: '232', teacher: 'Nguyễn Văn D', date: new Date('2021-10-10 7:30') },
-    { courseId: 'CO3009', courseName: 'Mạng máy tính', examType: 'Giữa kỳ', semester: '232', teacher: 'Nguyễn Văn E', date: new Date('2021-10-10 7:30') },
-  ]);
+  examQuery: ExamQuery;
+  defaultList: ExamListDto[];
+  examList: BehaviorSubject<ExamListDto[]> = new BehaviorSubject<ExamListDto[]>([]);
   
-  constructor() {
+  constructor(
+    private examService: ExamServiceProxy,
+    ) {
     this.clear();
+    this.examService.getExams("").subscribe((value) => {
+      this.defaultList = value.items;
+      this.examList.next(value.items);
+    })
   }
   setText(text: string) {
     this.examQuery.text = text;
@@ -55,6 +57,13 @@ export class ExamQueryService {
     }
   }
   search() {
-    this.examList.next([...this.examList.value, { courseId: 'CO3009', courseName: 'Mạng máy tính', examType: 'Giữa kỳ', semester: '232', teacher: 'Nguyễn Văn E', date: new Date() }])
+    this.examList.next(this.defaultList.filter((value) => {
+      let b = true;
+      if (this.examQuery.text) b = b && (value.course.search(this.examQuery.text) >= 0);
+      if (this.examQuery.examType) b = b && (value.exam_type == this.examQuery.examType);
+      if (this.examQuery.lowerTime) b = b && (this.examQuery.lowerTime.getTime() - value.start_date.toJSDate().getTime() <= 0)
+      if (this.examQuery.upperTime) b = b && (this.examQuery.upperTime.getTime() - value.end_date.toJSDate().getTime() >= 0)
+      return b;
+    }))
   }
 }

@@ -18,10 +18,6 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
         public const int MaxCourseLength = 255;
         public const int MaxPointCalLength = 255;
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)] // Specify that the ID is not auto-generated
-        [Key] // Mark this property as the key
-        public override int Id { get; set; }
-
         [Required]
         public virtual int Working_time { get; set; }
 

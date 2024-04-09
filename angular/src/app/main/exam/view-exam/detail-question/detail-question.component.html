@@ -1,7 +1,7 @@
 <div class="border p-5 rounded border-2 pt-5 m-3 bg-light">
     <div class="d-flex justify-content-between px-8">
-        <h3 class="card-title text-dark font-weight-bold mb-1">Question {{questionService.getIdQuestion(questionInput)}}</h3>
-        <button class="btn btn-danger" (click)="openDialog()" [disabled]="isProssibleDeleted">Hủy câu hỏi</button>
+        <h3 class="card-title text-dark font-weight-bold mb-1">Question {{questionInput.id}}</h3>
+        <button class="btn btn-danger" (click)="openDialog()">Hủy câu hỏi</button>
     </div>
     
     <div class="card-body px-0">
@@ -15,7 +15,7 @@
             </div>
             <div class="d-flex align-items-center">
                 <input
-                    [(ngModel)]="questionPoint"
+                    [(ngModel)]="questionInput.questionPoint"
                     type="text"
                     class="form-control form-control-solid bg-primary text-white font-weight-bold"
                     placeholder="1"
@@ -24,14 +24,14 @@
                 <span class="card-title text-dark mb-1 bg-white">Point</span>
             </div>
         </div>
-        <p-editor [(ngModel)]="questionContent" class="w-100" name="HtmlEditorInput" [style]="{ height: '300px' }"></p-editor>
+        <p-editor [(ngModel)]="questionInput.questionContent" class="w-100" name="HtmlEditorInput" [style]="{ height: '300px' }"></p-editor>
        
         <!-- For case multiple choice for 4 answers -->
-        <div class="d-flex flex-column w-100 gap-4 px-8" *ngIf="questionType === 'Multiple choice'">
+        <div class="d-flex flex-column w-100 gap-4 px-8" *ngIf="questionInput.questionType === 'Multiple choice'">
             <h4 class="card-title text-dark font-weight-bold mb-1" style="width: 40%">Trả lời</h4>
             <div class="d-flex align-items-center justify-content-between" style="width: 40%">
                 <h5 class="card-title text-success font-weight-bold mb-1">Câu trả lời đúng:</h5>
-                <input [(ngModel)]="rightAnswer" class="form-control form-control-solid bg-white border border-dark" style="width: 20rem"/>
+                <input [(ngModel)]="questionInput.rightAnswer" class="form-control form-control-solid bg-white border border-dark" style="width: 20rem"/>
             </div>
             <div class="d-flex align-items-center justify-content-between" style="width: 40%">
                 <h5 class="card-title text-danger font-weight-bold mb-1">Câu trả lời sai:</h5>
@@ -62,13 +62,13 @@
             </div>
         </div>
         <!-- For case boolean for 2 answers: write or wrong -->
-        <div class="d-flex flex-column w-100 gap-4 px-8" *ngIf="questionType === 'True/False'">
+        <div class="d-flex flex-column w-100 gap-4 px-8" *ngIf="questionInput.questionType === 'True/False'">
             <h4 class="card-title
             text-dark font-weight-bold mb-1" style="width: 40%">Trả lời</h4>
             <div class="d-flex align-items-center justify-content-between" style="width: 40%">
                 <h5 class="card-title
                 text-success font-weight-bold mb-1">Câu trả lời đúng:</h5>
-                <input [(ngModel)]="rightAnswer" type="text" class="form-control form-control-solid bg-white  border border-dark" style="width: 20rem"/>
+                <input [(ngModel)]="questionInput.rightAnswer" type="text" class="form-control form-control-solid bg-white  border border-dark" style="width: 20rem"/>
             </div>
             <div class="d-flex align-items-center justify-content-between" style="width: 40%">
                 <h5 class="card-title

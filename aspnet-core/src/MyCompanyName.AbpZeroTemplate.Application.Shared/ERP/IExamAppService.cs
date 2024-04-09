@@ -13,7 +13,7 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
     public interface IExamAppService : IApplicationService
     {
         ListResultDto<ExamListDto> GetExams(GetExamsInput input);
-        Task AddExam (CreateExamInput input);
+        Task<int> AddExam (CreateExamInput input);
         Task DeleteExam(EntityDto input);
         /*Task<GetExamForEditOutput> GetExamForEdit(GetExamForEditInput input);*/
         /*Task EditExam(EditExamInput input);*/
@@ -48,12 +48,17 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
         public string Join { get; set; }
     }*/
 
+    public class ExamDto
+    {
+        public ExamDto(int id)
+        {
+            Id = id;
+        }
+        public int Id { get; set; }
+    }
 
     public class CreateExamInput
     {
-        [Required]
-        public int Id { get; set; }
-
         [Required]
         public int Working_time { get; set; }
 
@@ -133,7 +138,7 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
 
 
 
-    public class QuestionInExamListDto : CreationAuditedEntityDto<long>
+    public class QuestionInExamListDto : CreationAuditedEntityDto<int>
     {
         public int Point { get; set; }
 

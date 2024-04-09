@@ -2,22 +2,28 @@
     <table class="test-table">
         <thead class="test-table-thead">
             <tr>
-                <th scope="col" class="small-col">Mã MH</th>
+                <th scope="col" class="small-col">Mã đề thi</th>
                 <th scope="col" class="big-col">Môn học</th>
                 <th scope="col" class="small-col">Đề thi</th>
-                <th scope="col" class="small-col">Học kỳ</th>
-                <th scope="col" class="big-col">Giảng viên</th>
-                <th scope="col" class="big-col">Ngày thi</th>
+                <th scope="col" class="small-col">Thời gian (Phút)</th>
+                <th scope="col" class="small-col">Ngày bắt đầu</th>
+                <th scope="col" class="small-col">Ngày kết thúc</th>
+                <th scope="col" class="big-col"></th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let test of pagedTests">
-                <td>{{ test.courseId }}</td>
-                <td>{{ test.courseName }}</td>
-                <td>{{ test.examType }}</td>
-                <td>{{ test.semester }}</td>
-                <td>{{ test.teacher }}</td>
-                <td>{{ test.date.toLocaleDateString() }}</td>
+            <tr *ngFor="let test of pagedTests" >
+                <td>{{ test.id }}</td>
+                <td>{{ test.exam_type }}</td>
+                <td>{{ test.course }}</td>
+                <td>{{ test.working_time }}</td>
+                <td>{{ test.start_date.toLocaleString() }}</td>
+                <td>{{ test.end_date.toLocaleString() }}</td>
+                <td>  <button class="btn btn-primary" style="width: 8rem;" (click)="doExam(test.id)">
+                    Làm bài 
+                </button> <button class="btn btn-warning" style="width: 10rem;" (click)="viewExam(test.id)">
+                    Sửa đề thi 
+                </button></td>
             </tr>
         </tbody>
     </table>

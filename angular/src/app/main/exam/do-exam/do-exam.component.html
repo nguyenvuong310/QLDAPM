@@ -1,0 +1,17 @@
+
+<div class="d-flex flex">
+    <div style="width: 75%;">    <questions-exam-question *ngFor="let question of questionService.questionList; let i = index" [id]="i" [questionInput]="question" ></questions-exam-question></div>
+
+    <div class="py-1" style="width: 25%; height: 100vh;background-color: #f8f9fa; border-left:1px solid #6a737b; border-top:1px solid #6a737b;">
+        <div class="border border-dark "style="margin:20px; height: 200px;;" >
+            <div class="text-center" style="margin-bottom: 20px; font-size: 20px; border-bottom: 1px solid #6a737b;" >Bảng câu hỏi</div>
+            <div class="box d-flex flex gap-1" style="margin-left: 20px; font-size: 18px;">
+                <div class="border border-dark justify-content-center align-items-center p-2" *ngFor="let number of getNumberArray(questionService.questionList.length)" style="width: 25px;">
+                   <b class="item">{{ number }}</b> 
+                </div>
+            </div>
+        </div>
+   
+       
+    </div>
+</div>

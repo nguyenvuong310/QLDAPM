@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { CreateExamInput, ExamServiceProxy } from '@shared/service-proxies/service-proxies';
-import { QuestionService } from '../service/question.service';
+import { ExamConfigService } from '../service/examconfig.service';
 
 @Component({
   selector: 'exam-detail-component',
@@ -9,85 +8,35 @@ import { QuestionService } from '../service/question.service';
 })
 export class ExamDetailComponent implements OnInit {
 
-  subjects = [
-  {id: 1, name: "Quản lí dự án phần mềm"},
-  {id: 2, name: "Nguyên lí ngôn ngữ lập trình"},
-  {id: 3, name: "Lập trính Web"},
-  ];
-
-  type = ["Giữa kì", "Cuối kì"];
-
+  courses = ["Quản lí dự án phần mềm", "Nguyên lí ngôn ngữ lập trình", "Lập trính Web"];
+  types = ["Giữa kì", "Cuối kì"];
   policies = ["Cao nhất", "Lần nộp cuối cùng", "Trung bình"];
 
   @Output() validEvent = new EventEmitter<boolean>();
-  id = null;
-  selectedSubject = null;
-  selectedType = null;
-  startDate = null;
-  endDate = null;
-  time = 0;
-  isRandom = false;
-  multipleAttempt = false;
-  attemptCount = 0;
-  selectedPolicy = this.policies[2];
-  allowMistakeReview = false;
-  allowMistakeReviewLast = false;
-  allowMistakeReviewAll = false;
-  allowCorrectReview = false;
-  allowCorrectReviewLast = false;
-  oncePerQuestion = false
-  requirePassword = false
-  password = ""
   
   constructor(
-    private _examService: ExamServiceProxy,
-    public questionService: QuestionService
-    ) { 
-  }
+    public examService: ExamConfigService,
+  ) { }
 
-  ngOnInit(): void {
-    this.id = Math.floor(Math.random() * 1000000000);
-  }
+  ngOnInit(): void {}
 
-  setSubject(e: any) {
-    this.selectedSubject = e;
+  setCourse(e: string) {
+    this.examService.course = e;
     this.checkValid();
   }
 
-  setType(e: any) {
-    this.selectedType = e;
+  setType(e: string) {
+    this.examService.examType = e;
     this.checkValid();
   }
 
-  setPolicy(e: any) {
-    this.selectedPolicy = e
+  setPolicy(e: string) {
+    this.examService.gradingPolicy = e
   }
 
   checkValid() {
-    if (this.selectedSubject != null && this.selectedType != null && this.time > 0 && this.startDate != null && this.endDate != null) this.validEvent.emit(true);
+    if (this.examService.course != null && this.examService.examType != null && this.examService.time > 0 && this.examService.startDate != null && this.examService.endDate != null) this.validEvent.emit(true);
     else this.validEvent.emit(false);
   }
 
-  post() {
-    let ids = Math.floor(Math.random() * 1000000000)
-    this.id = ids;
-    this.questionService.setExamId(ids);
-    let request = new CreateExamInput({
-      "id": this.id,
-      "working_time": this.time,
-      "mix_question": this.isRandom,
-      "redo_num": this.attemptCount,
-      "point_is_cal": this.selectedPolicy,
-      "review_wrong_ans": this.allowMistakeReview,
-      "review_right_ans": this.allowCorrectReview,
-      "view_question_one": this.oncePerQuestion,
-      "require_password": this.password,
-      "start_date": this.startDate,
-      "end_date": this.endDate,
-      "exam_type": this.selectedType,
-      "course": this.selectedSubject.name
-    })
-    this._examService.addExam(request).subscribe();
-    return this.id;
-  }
 }

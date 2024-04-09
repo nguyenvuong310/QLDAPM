@@ -17,6 +17,18 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
         public const int MaxAnswerLength = 65535;
         public const int MaxTypeLength = 255;
 
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public override int Id { get; set; }
+
+        [ForeignKey("ExamId")]
+        public virtual Exam Exam { get; set; }
+        public virtual int ExamId { get; set; }
+
+
+
+
         [Required]
         public virtual int Point { get; set; }
 
@@ -34,15 +46,10 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
         public virtual string Answer { get; set; }
 
 
-        [ForeignKey("ExamId")]
-        public virtual Exam Exam { get; set; }
-        public virtual int ExamId { get; set; }
-
 
 
         public virtual ExamFile ExamFile { get; set; }
 
-        //public virtual ICollection<Contain> Contains { get; set; }
 
     }
 }

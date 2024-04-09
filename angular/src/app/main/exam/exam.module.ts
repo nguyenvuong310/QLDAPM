@@ -8,11 +8,10 @@ import { ExamComponent } from './exam.component';
 import { ViewExamModule } from './view-exam/view-exam.module';
 import { ExamListComponent } from './exam-list/exam-list.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-
+import { DoExamModule } from './do-exam/do-exam.module';
 
 @NgModule({
   declarations: [ExamComponent, ExamListComponent, SearchBarComponent],
-  imports: [AppSharedModule, ExamRoutingModule, SubheaderModule, ViewExamModule, PaginationModule, CollapseModule],
-  exports: [SearchBarComponent]
+  imports: [AppSharedModule, ExamRoutingModule, SubheaderModule, ViewExamModule, PaginationModule, CollapseModule, DoExamModule],
 })
 export class ExamModule {}

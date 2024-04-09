@@ -54,6 +54,24 @@ namespace MyCompanyName.AbpZeroTemplate.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
+
+            // Configure composite primary key
+            modelBuilder.Entity<Question>()
+                .HasKey(q => new { q.Id, q.ExamId });
+
+            // Configure auto-increment for the Id column
+            /*modelBuilder.Entity<Question>()
+                .Property(q => q.Id)
+                .ValueGeneratedOnAdd();*/
+
+            modelBuilder.Entity<Question>()
+                .HasOne(x => x.ExamFile)
+                .WithOne(x => x.Question)
+                .HasForeignKey<ExamFile>(x => new { x.QuestionId, x.ExamId});
+
+
+
+
             modelBuilder.Entity<BinaryObject>(b =>
             {
                 b.HasIndex(e => new { e.TenantId });

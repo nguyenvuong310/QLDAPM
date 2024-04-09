@@ -35,8 +35,7 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
                 .Include(q=>q.ExamFile)
                 .WhereIf(
                     !input.Filter.IsNullOrEmpty(),
-                    p => p.Content.Contains(input.Filter) ||
-                         p.Answer.Contains(input.Filter)
+                    p => p.ExamId.ToString() == input.Filter
                 )
                 .OrderBy(p => p.Content)
                 .ThenBy(p => p.Answer)
@@ -49,6 +48,17 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
         {
             var exam = _examRepository.Get(input.ExamId);
             await _examRepository.EnsureCollectionLoadedAsync(exam, p => p.Questions);
+
+            if(exam.Questions.Any())
+            {
+                input.Id = exam.Questions.LastOrDefault().Id + 1;
+            }
+            else
+            {
+                input.Id = 1;
+            }
+
+            
 
             var question = ObjectMapper.Map<Question>(input);
             exam.Questions.Add(question);
@@ -66,7 +76,8 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
 
         public async Task UpdateQuestionById(UpdateQuestionInputById input)
         {
-            var question = await _questionRepository.GetAsync(input.Id);
+            var question = await _questionRepository.FirstOrDefaultAsync(q => q.Id == input.Id && q.ExamId == input.ExamId);
+
             if (!string.IsNullOrEmpty(input.Answer))
             {
                 // Update the Answer only if it is not null or empty
