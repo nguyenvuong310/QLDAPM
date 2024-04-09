@@ -1,11 +1,11 @@
 <div class="px-8">
     <div class="d-flex flex">
-
-        <b class="card-title text-dark font-weight-bold mb-1 border border-dark p-2" style="height: 100px;border-radius: 5px;">Question {{questionInput.id}}</b>
-        <div class="border p-2" style="margin-left: 40px; margin-bottom: 40px; width: 85%; border-radius: 5px; background-color: #e7f3f5;">
+   
+        <b class="card-title font-weight-bold mb-1 border border-dark p-2" style="height: 100px;border-radius: 5px; width: 100px; color: #524cd2;">Câu hỏi <span style="font-size: 18px;">{{questionInput.id}}</span></b>
+        <div class="border p-4" style="margin-left: 40px; margin-bottom: 40px; width: 85%; border-radius: 5px; background-color: #e7f3f5;">
             <div class="d-flex  flex-column w-full gap-4">
               
-                <b><div [innerHTML]="questionInput.questionContent"></div></b>
+                <div [innerHTML]="questionInput.questionContent"></div>
                 <!-- For case multiple choice for 4 answers -->
                 <div class="d-flex flex-column w-100 gap-4 px-8" *ngIf="questionInput.questionType === 'Multiple choice'">
                     <div class="d-flex align-items-center justify-content-between" style="width: 40%">
@@ -48,7 +48,7 @@
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                             <label class="form-check-label" for="flexRadioDefault1">
-                                <input type="text" class="form-control-solid border-0 " style="width: 20rem"/>
+                                <input [(ngModel)]="questionInput.rightAnswer" class="" style="width: 20rem; border: none; background-color: transparent;">
                             </label>
                           </div>
                         

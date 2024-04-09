@@ -1,16 +1,20 @@
 
 <div class="d-flex flex">
-    <div style="width: 75%;">    <questions-exam-question *ngFor="let question of questionService.questionList; let i = index" [id]="i" [questionInput]="question" ></questions-exam-question></div>
-
+    <sub-header [title]="'Đề thi '+ examService.course + ' môn ' + examService.examType + ' (' + examService.startDate.toLocaleDateString() + ' - ' + examService.endDate.toLocaleDateString() + ')'"  >
+      </sub-header>
+    <div style="width: 75%; margin-top: 40px;">    <questions-exam-question *ngFor="let question of questionService.questionList; let i = index" [id]="i" [questionInput]="question" ></questions-exam-question></div>
+   
     <div class="py-1" style="width: 25%; height: 100vh;background-color: #f8f9fa; border-left:1px solid #6a737b; border-top:1px solid #6a737b;">
-        <div class="border border-dark "style="margin:20px; height: 200px;;" >
-            <div class="text-center" style="margin-bottom: 20px; font-size: 20px; border-bottom: 1px solid #6a737b;" >Bảng câu hỏi</div>
-            <div class="box d-flex flex gap-1" style="margin-left: 20px; font-size: 18px;">
-                <div class="border border-dark justify-content-center align-items-center p-2" *ngFor="let number of getNumberArray(questionService.questionList.length)" style="width: 25px;">
+        <div class="border border-dark p-1 border-0 text-center" style="font-size: 20px;"> {{counter | formatTime}}</div>
+        <div class="border border-dark "style="margin:20px; height: 200px;background-color:#e0dcdc; ">
+            <div class="text-center" style="margin-bottom: 20px; font-size: 20px; border-bottom: 1px solid #6a737b !important; color: #524cd2; background-color: white;" >Bảng câu hỏi</div>
+            <div class="box d-flex flex gap-1" style="margin-left: 20px; font-size: 18px; ">
+                <div class="border border-dark justify-content-center align-items-center p-2" *ngFor="let number of getNumberArray(questionService.questionList.length)" style="width: 25px; color: #524cd2; border-radius: 3px; cursor: pointer;">
                    <b class="item">{{ number }}</b> 
                 </div>
             </div>
         </div>
+        <span class="px-5" style="font-size: 18px; color: #524cd2;cursor: pointer;">Hoàn thành bài làm</span>
    
        
     </div>
