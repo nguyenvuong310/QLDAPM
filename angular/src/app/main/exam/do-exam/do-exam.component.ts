@@ -28,6 +28,7 @@ export class DoExamComponent implements OnInit {
      countDown: Subscription;
      counter = null;
      tick = 1000;
+     showDialog = false;
   ngOnInit() {
     this.route.data.subscribe(data => {
       let exam: ExamListDto = data["exam"];
@@ -56,7 +57,15 @@ export class DoExamComponent implements OnInit {
   getNumberArray(length: number): number[] {
     return Array.from(Array(length).keys()).map(x => x + 1);
   }
- 
+  openDialog() {
+    this.showDialog = true;
+  }
+  closeDialog() {
+    this.showDialog = false;
+  }
+  saveExam(){
+    this.router.navigate(['/app/main/exam']); 
+  }
 }
 @Pipe({
   name: 'formatTime',

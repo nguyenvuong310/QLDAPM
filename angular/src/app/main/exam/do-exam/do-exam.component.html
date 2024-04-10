@@ -14,8 +14,9 @@
                 </div>
             </div>
         </div>
-        <span class="px-5" style="font-size: 18px; color: #524cd2;cursor: pointer;">Hoàn thành bài làm</span>
+        <span class="px-5" style="font-size: 18px; color: #524cd2;cursor: pointer;" (click)="openDialog()">Hoàn thành bài làm</span>
    
        
     </div>
+    <app-erase-dialog *ngIf="showDialog" (confirm)="saveExam()" (deny)="closeDialog()"></app-erase-dialog>
 </div>
