@@ -39,7 +39,7 @@
                     type="text"
                     class="form-control form-control-solid bg-white  border border-dark"
                     style="width: 20rem; margin-left: 20px"
-                    (blur)="setWrongAnswers($event.target.value)"
+                    [(ngModel)]="questionInput.otherAnswers"
                 />
             </div>
             <div class="d-flex align-items-center justify-content-between" style="width: 40%">
@@ -48,7 +48,7 @@
                     type="text"
                     class="form-control form-control-solid bg-white  border border-dark"
                     style="width: 20rem; margin-left: 20px"
-                    (blur)="setWrongAnswers($event.target.value)"
+                    [(ngModel)]="questionInput.otherAnswer1s"
                 />
             </div>
             <div class="d-flex align-items-center justify-content-between" style="width: 40%">
@@ -57,7 +57,7 @@
                     type="text"
                     class="form-control form-control-solid bg-white  border border-dark"
                     style="width: 20rem; margin-left: 20px"
-                    (blur)="setWrongAnswers($event.target.value)"
+                    [(ngModel)]="questionInput.otherAnswer2s"
                 />
             </div>
         </div>
@@ -73,7 +73,8 @@
             <div class="d-flex align-items-center justify-content-between" style="width: 40%">
                 <h5 class="card-title
                 text-danger font-weight-bold mb-1">Câu trả lời sai:</h5>
-                <input type="text" class="form-control form-control-solid bg-white  border border-dark" style="width: 20rem; margin-left: 20px" (blur)="setWrongAnswers($event.target.value)" />
+                <input
+                [(ngModel)]="questionInput.otherAnswers" type="text" class="form-control form-control-solid bg-white  border border-dark" style="width: 20rem; margin-left: 20px" (blur)="setWrongAnswers($event.target.value)" />
             </div>
         </div>
         <div class="w-100 px-0">

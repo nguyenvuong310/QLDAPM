@@ -78,7 +78,10 @@ export class ViewExamComponent implements OnInit {
         question_type: i.questionType,
         content: i.questionContent,
         answer: i.rightAnswer,
-        examId: this.examId
+        examId: this.examId,
+        otherAnswer: i.otherAnswers,
+        otherAnswer1: i.otherAnswer1s,
+        otherAnswer2: i.otherAnswer2s
       });
       this.questionProxy.createQuestion(question)
       .subscribe(() => {

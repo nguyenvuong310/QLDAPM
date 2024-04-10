@@ -148,5 +148,11 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
         public string Content { get; set; }
 
         public string Answer { get; set; }
+
+        public string OtherAnswer { get; set; }
+
+        public string OtherAnswer1 { get; set; }
+
+        public string OtherAnswer2 { get; set; }
     }
 }

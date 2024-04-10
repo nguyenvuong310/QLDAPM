@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyCompanyName.AbpZeroTemplate.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using MyCompanyName.AbpZeroTemplate.EntityFrameworkCore;
 namespace MyCompanyName.AbpZeroTemplate.Migrations
 {
     [DbContext(typeof(AbpZeroTemplateDbContext))]
-    partial class AbpZeroTemplateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240410122917_Update_Questions_Table")]
+    partial class Update_Questions_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1905,14 +1907,6 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("OtherAnswer")
-                        .HasMaxLength(65535)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OtherAnswer1")
-                        .HasMaxLength(65535)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OtherAnswer2")
                         .HasMaxLength(65535)
                         .HasColumnType("nvarchar(max)");
 

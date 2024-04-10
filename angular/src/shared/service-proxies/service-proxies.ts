@@ -16945,6 +16945,9 @@ export class CreateQuestionInput implements ICreateQuestionInput {
     question_type!: string;
     content!: string;
     answer!: string | undefined;
+    otherAnswer!: string | undefined;
+    otherAnswer1!: string | undefined;
+    otherAnswer2!: string | undefined;
     examId!: number;
 
     constructor(data?: ICreateQuestionInput) {
@@ -16963,6 +16966,9 @@ export class CreateQuestionInput implements ICreateQuestionInput {
             this.question_type = _data["question_type"];
             this.content = _data["content"];
             this.answer = _data["answer"];
+            this.otherAnswer = _data["otherAnswer"];
+            this.otherAnswer1 = _data["otherAnswer1"];
+            this.otherAnswer2 = _data["otherAnswer2"];
             this.examId = _data["examId"];
         }
     }
@@ -16981,6 +16987,9 @@ export class CreateQuestionInput implements ICreateQuestionInput {
         data["question_type"] = this.question_type;
         data["content"] = this.content;
         data["answer"] = this.answer;
+        data["otherAnswer"] = this.otherAnswer;
+        data["otherAnswer1"] = this.otherAnswer1;
+        data["otherAnswer2"] = this.otherAnswer2;
         data["examId"] = this.examId;
         return data; 
     }
@@ -16992,6 +17001,9 @@ export interface ICreateQuestionInput {
     question_type: string;
     content: string;
     answer: string | undefined;
+    otherAnswer: string | undefined;
+    otherAnswer1: string | undefined;
+    otherAnswer2: string | undefined;
     examId: number;
 }
 
@@ -25280,6 +25292,9 @@ export class QuestionInExamListDto implements IQuestionInExamListDto {
     question_type!: string | undefined;
     content!: string | undefined;
     answer!: string | undefined;
+    otherAnswer!: string | undefined;
+    otherAnswer1!: string | undefined;
+    otherAnswer2!: string | undefined;
     creationTime!: DateTime;
     creatorUserId!: number | undefined;
     id!: number;
@@ -25299,6 +25314,9 @@ export class QuestionInExamListDto implements IQuestionInExamListDto {
             this.question_type = _data["question_type"];
             this.content = _data["content"];
             this.answer = _data["answer"];
+            this.otherAnswer = _data["otherAnswer"];
+            this.otherAnswer1 = _data["otherAnswer1"];
+            this.otherAnswer2 = _data["otherAnswer2"];
             this.creationTime = _data["creationTime"] ? DateTime.fromISO(_data["creationTime"].toString()) : <any>undefined;
             this.creatorUserId = _data["creatorUserId"];
             this.id = _data["id"];
@@ -25318,6 +25336,9 @@ export class QuestionInExamListDto implements IQuestionInExamListDto {
         data["question_type"] = this.question_type;
         data["content"] = this.content;
         data["answer"] = this.answer;
+        data["otherAnswer"] = this.otherAnswer;
+        data["otherAnswer1"] = this.otherAnswer1;
+        data["otherAnswer2"] = this.otherAnswer2;
         data["creationTime"] = this.creationTime ? this.creationTime.toString() : <any>undefined;
         data["creatorUserId"] = this.creatorUserId;
         data["id"] = this.id;
@@ -25330,6 +25351,9 @@ export interface IQuestionInExamListDto {
     question_type: string | undefined;
     content: string | undefined;
     answer: string | undefined;
+    otherAnswer: string | undefined;
+    otherAnswer1: string | undefined;
+    otherAnswer2: string | undefined;
     creationTime: DateTime;
     creatorUserId: number | undefined;
     id: number;

@@ -18,7 +18,10 @@ export class QuestionService {
         questionPoint: question.point,
         questionContent: question.content,
         rightAnswer: question.answer,
-        wrongAnswers: []
+        wrongAnswers: [],
+        otherAnswers: question.otherAnswer,
+        otherAnswer1s: question.otherAnswer1,
+        otherAnswer2s: question.otherAnswer2
       };
     } else {
       const id = this.questionList.length + 1;
@@ -28,7 +31,10 @@ export class QuestionService {
         questionPoint: 1,
         questionContent: "",
         rightAnswer: "",
-        wrongAnswers: []
+        wrongAnswers: [],
+        otherAnswers: "",
+        otherAnswer1s: "",
+        otherAnswer2s: ""
       }
     }
     this.questionList.push(newQuestion);

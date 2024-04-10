@@ -68,6 +68,15 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
         [MaxLength(QuestionConsts.MaxAnswerLength)]
         public string Answer { get; set; }
 
+        [MaxLength(QuestionConsts.MaxAnswerLength)]
+        public string OtherAnswer { get; set; }
+
+        [MaxLength(QuestionConsts.MaxAnswerLength)]
+        public string OtherAnswer1 { get; set; }
+
+        [MaxLength(QuestionConsts.MaxAnswerLength)]
+        public string OtherAnswer2 { get; set; }
+
 
         [Range(1, int.MaxValue)]
         public int ExamId { get; set; }

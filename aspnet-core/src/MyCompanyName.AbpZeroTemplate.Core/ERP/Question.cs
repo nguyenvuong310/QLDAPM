@@ -45,8 +45,14 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
         [MaxLength(MaxAnswerLength)]
         public virtual string Answer { get; set; }
 
+        [MaxLength(MaxAnswerLength)]
+        public virtual string OtherAnswer { get; set; }
 
+        [MaxLength(MaxAnswerLength)]
+        public virtual string OtherAnswer1 { get; set; }
 
+        [MaxLength(MaxAnswerLength)]
+        public virtual string OtherAnswer2 { get; set; }
 
         public virtual ExamFile ExamFile { get; set; }
 
