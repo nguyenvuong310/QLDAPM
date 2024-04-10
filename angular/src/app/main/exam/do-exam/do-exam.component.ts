@@ -41,7 +41,7 @@ export class DoExamComponent implements OnInit {
       this.examId = exam.id;
     })
     this.countDownTime();
-    console.log("hi",this.questionService.questionList);
+    
     
 
   }

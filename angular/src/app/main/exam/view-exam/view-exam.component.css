@@ -16,6 +16,14 @@
       transform: translateY(0);
     }
   }
+  @keyframes spin-fast {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.fa-spin-fast {
+    animation: spin-fast 0.5s linear infinite;
+}
 .overlay {
     position: fixed;
     top: 0;

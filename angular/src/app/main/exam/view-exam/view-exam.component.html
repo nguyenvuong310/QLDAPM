@@ -4,6 +4,13 @@
       
     </div>
   </sub-header>
+ 
+    <div *ngIf="isLoad"  class="root-initial-loader">
+      <div class="overlay"></div>
+      <i class="fas fa-circle-notch fa-3x fa-spin-2x"></i>
+  </div>
+ 
+ 
   <div class="card card-custom gutter-b p-6">
     <div class="card-body border mx-0">
       <tabset #staticTabs>

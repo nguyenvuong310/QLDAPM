@@ -7,6 +7,8 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { CreateExamInput, CreateQuestionInput, ExamListDto, ExamServiceProxy, QuestionServiceProxy } from '@shared/service-proxies/service-proxies';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ActivatedRoute, Router } from '@angular/router';
+import { concatMap, delay, finalize } from 'rxjs/operators';
+import { forkJoin, from } from 'rxjs';
 
 
 @Component({
@@ -26,7 +28,7 @@ export class ViewExamComponent implements OnInit {
   questionTabDisabled = true;
   examId = null;
   showSuccessDialog = false;
-
+  isLoad = false;
   constructor(
     public questionService: QuestionService,
     public examService: ExamConfigService,
@@ -54,13 +56,16 @@ export class ViewExamComponent implements OnInit {
     this.questionTabDisabled = !e;
   }
 
-  saveConfig() {
+   saveConfig() {
     if (this.examId == null) {
+      this.isLoad = true;
+      console.log("load",this.isLoad);
       let examConfigData = this.examService.getData();
       let request = new CreateExamInput(examConfigData)
-      this.examProxy.addExam(request).subscribe((value) => {
+      this.examProxy.addExam(request).subscribe(async (value) => {
         this.examId = value;
-        this.saveQuestions();
+        
+        await this.saveQuestions();
       }, (error) => {
 
       });
@@ -69,34 +74,35 @@ export class ViewExamComponent implements OnInit {
     }
   }
 
-  saveQuestions() {
-    let error = false;
-    for (let i of this.questionService.questionList) {
-      let question = new CreateQuestionInput({
-        id: i.id,
-        point: i.questionPoint,
-        question_type: i.questionType,
-        content: i.questionContent,
-        answer: i.rightAnswer,
-        examId: this.examId,
-        otherAnswer: i.otherAnswers,
-        otherAnswer1: i.otherAnswer1s,
-        otherAnswer2: i.otherAnswer2s
-      });
-      this.questionProxy.createQuestion(question)
-      .subscribe(() => {
+  async saveQuestions() {
+    try {
 
-      }, error => {
-          console.error('There was an error creating the question', error);
-          error = true;
-      });
-    }
-    if (!error) {
+      await from(this.questionService.questionList).pipe(
+        concatMap(i => {
+          let question = new CreateQuestionInput({
+            id: i.id,
+            point: i.questionPoint,
+            question_type: i.questionType,
+            content: i.questionContent,
+            answer: i.rightAnswer,
+            examId: this.examId,
+            otherAnswer: i.otherAnswers,
+            otherAnswer1: i.otherAnswer1s,
+            otherAnswer2: i.otherAnswer2s
+          });
+          return this.questionProxy.createQuestion(question).pipe(delay(1000)); // Adjust delay time as needed (in milliseconds)
+        })
+      ).toPromise();
+    
+      // All requests succeeded
+      this.isLoad = false;
       this.showSuccessDialog = true;
       setTimeout(() => {
         this.showSuccessDialog = false;
-        this.router.navigate(['app/main/exam'])
-      }, 3000)
+        this.router.navigate(['app/main/exam']);
+      }, 3000);
+    } catch (error) {
+      console.error('An error occurred while creating the questions', error);
     }
   }
 
